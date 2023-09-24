@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="cpp_title">
+        <item name="android:fontFamily">@font/vlaanderen_roundnf</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">#007DF9</item>
+    </style>
+    <style name="tab_text">
+        <item name="android:fontFamily">@font/metropolis_semi_bold</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#007DF9</item>
+    </style>
+    <style name="logo_text">
+        <item name="android:fontFamily">@font/sirin_stencil_regular</item>
+        <item name="android:textSize">26sp</item>
+        <item name="android:letterSpacing">0.125</item>
+        <item name="android:textColor">@color/icon_inactive</item>
+    </style>
+    <style name="title_default">
+        <item name="android:fontFamily">@font/metropolis_semi_bold</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/icon_inactive</item>
+    </style>
+    <style name="bottomNavigationInactiveText">
+        <item name="android:textColor">@color/icon_inactive</item>
+        <item name="fontFamily">@font/metropolis_regular</item>
+    </style>
+    <style name="bottomNavigationActiveText">
+        <item name="fontFamily">@font/metropolis_semi_bold</item>
+        <item name="android:textColor">@color/primaryColor</item>
+    </style>
+    <dimen name="default_corner_radius">10dp</dimen>
+    <dimen name="min_button_height">56dp</dimen>
+    <dimen name="default_margin">20dp</dimen>
+    <dimen name="map_function_size">48dp</dimen>
+    <style name="button_text_style">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:fontFamily">@font/metropolis_semi_bold</item>
+    </style>
+    <style name="button_card_style">
+        <item name="cardBackgroundColor">@color/green1</item>
+        <item name="alpha">0.2</item>
+        <item name="android:clickable">true</item>
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+        <item name="cardCornerRadius">@dimen/default_corner_radius</item>
+    </style>
+    <style name="long_text_style">
+        <item name="fontFamily">@font/metropolis_regular</item>
+    </style>
+    <style name="spinner_item">
+        <item name="fontFamily">@font/metropolis_bold</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+    <style name="small_text_style_title">
+        <item name="android:textColor">@color/chapter_title</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="fontFamily">@font/metropolis_bold</item>
+    </style>
+    <style name="small_text_style_description">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="fontFamily">@font/metropolis_bold</item>
+    </style>
+    <style name="ll_container">
+        <item name="android:layout_margin">20dp</item>
+    </style>
+</resources>

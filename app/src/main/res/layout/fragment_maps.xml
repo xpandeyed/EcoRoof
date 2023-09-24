@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/f_map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MapsFragment" />
+
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/sv_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/default_margin"
+        android:background="@drawable/search_view_background"
+        app:iconifiedByDefault="false"
+        app:layout_constraintTop_toTopOf="parent"
+        app:queryHint="Search Here" />
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_zoom_in"
+        android:layout_width="@dimen/map_function_size"
+        android:layout_height="@dimen/map_function_size"
+        android:layout_margin="20dp"
+        android:alpha="0.2"
+        android:background="@color/white"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintBottom_toTopOf="@id/cv_zoom_out"
+        app:layout_constraintRight_toRightOf="parent">
+
+
+    </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:id="@+id/iv_zoom_in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_round_zoom_in_24"
+        app:layout_constraintBottom_toBottomOf="@id/cv_zoom_in"
+        app:layout_constraintLeft_toLeftOf="@id/cv_zoom_in"
+        app:layout_constraintRight_toRightOf="@id/cv_zoom_in"
+        app:layout_constraintTop_toTopOf="@id/cv_zoom_in" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_zoom_out"
+        android:layout_width="@dimen/map_function_size"
+        android:layout_height="@dimen/map_function_size"
+        android:layout_margin="20dp"
+        android:alpha="0.2"
+        android:background="@color/white"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintBottom_toTopOf="@id/cv_locate_me"
+        app:layout_constraintRight_toRightOf="parent">
+
+
+    </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:id="@+id/iv_zoom_out"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_round_zoom_out_24"
+        app:layout_constraintBottom_toBottomOf="@id/cv_zoom_out"
+        app:layout_constraintLeft_toLeftOf="@id/cv_zoom_out"
+        app:layout_constraintRight_toRightOf="@id/cv_zoom_out"
+        app:layout_constraintTop_toTopOf="@id/cv_zoom_out" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_locate_me"
+        android:layout_width="@dimen/map_function_size"
+        android:layout_height="@dimen/map_function_size"
+        android:layout_margin="20dp"
+        android:alpha="0.2"
+        android:background="@color/white"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardCornerRadius="@dimen/default_corner_radius"
+        app:layout_constraintBottom_toTopOf="@id/cv_take_ss"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_locate_me"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_my_location_24"
+        app:layout_constraintBottom_toBottomOf="@id/cv_locate_me"
+        app:layout_constraintLeft_toLeftOf="@id/cv_locate_me"
+        app:layout_constraintRight_toRightOf="@id/cv_locate_me"
+        app:layout_constraintTop_toTopOf="@id/cv_locate_me" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_take_ss"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:alpha="0.2"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:minHeight="@dimen/map_function_size"
+        app:cardCornerRadius="@dimen/default_corner_radius"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toRightOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        style="@style/button_text_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Done"
+        app:layout_constraintBottom_toBottomOf="@id/cv_take_ss"
+        app:layout_constraintLeft_toLeftOf="@id/cv_take_ss"
+        app:layout_constraintRight_toRightOf="@id/cv_take_ss"
+        app:layout_constraintTop_toTopOf="@id/cv_take_ss" />
+</androidx.constraintlayout.widget.ConstraintLayout>

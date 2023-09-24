@@ -1,3 +1,17 @@
 <resources>
-    <string name="app_name">Eco Roof</string>
+    <string name="app_name">TESLA</string>
+    <string name="done">Done</string>
+    <string name="tesla">TESLA</string>
+    <string-array name="ac_tonnage">
+        <item>Choose your AC tonnage</item>
+        <item>1</item>
+        <item>1.5</item>
+        <item>2</item>
+        <item>2.5</item>
+    </string-array>
+    <string-array name="material">
+        <item>Choose the roof coating material</item>
+        <item>Material 1</item>
+        <item>Material 1</item>
+    </string-array>
 </resources>

@@ -6,13 +6,81 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/abl_main_screen"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:elevation="4dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/tb_main_screen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/logo_text"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Eco Roof"
+                android:textColor="@color/black" />
+        </com.google.android.material.appbar.MaterialToolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/cl_calculate"
+        app:layout_constraintTop_toBottomOf="@id/abl_main_screen">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_calculate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/ultra_light_green"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_description"
+            style="@style/long_text_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_margin"
+            android:lineSpacingExtra="4dp"
+            android:paddingHorizontal="10dp"
+            android:text="Know how much you can save with Cool Roofs in simple steps."
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_calculate"
+            style="@style/button_card_style"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/min_button_height"
+            android:layout_margin="@dimen/default_margin"
+            android:alpha="0.2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_description" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_calculate"
+            style="@style/button_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Calculate Savings"
+            app:layout_constraintBottom_toBottomOf="@id/cv_calculate"
+            app:layout_constraintLeft_toLeftOf="@id/cv_calculate"
+            app:layout_constraintRight_toRightOf="@id/cv_calculate"
+            app:layout_constraintTop_toTopOf="@id/cv_calculate" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
