@@ -28,6 +28,8 @@ import java.io.IOException
 
 class MapsFragment : Fragment() {
 
+    private val TAG = "MapsFragmentTag"
+
     private val LOCATION_REQUEST_CODE = 1
     private val DEFAULT_ZOOM = 18
 
@@ -44,43 +46,51 @@ class MapsFragment : Fragment() {
 
     private lateinit var mapFragment: SupportMapFragment
 
-    private val callback = OnMapReadyCallback { googleMap ->
+    private var callback: OnMapReadyCallback
 
-        map = googleMap
-        fusedLocationProviderClient =
-            LocationServices.getFusedLocationProviderClient(requireActivity())
-        googleMap.mapType = GoogleMap.MAP_TYPE_SATELLITE
-        googleMap.uiSettings.apply {
-            isCompassEnabled = false
-            isMapToolbarEnabled = false
-            isIndoorLevelPickerEnabled = false
+    init {
+        Log.i(TAG, "init block")
+        callback = OnMapReadyCallback { googleMap ->
+
+            Log.i(TAG, "callback")
+
+            map = googleMap
+            fusedLocationProviderClient =
+                LocationServices.getFusedLocationProviderClient(requireActivity())
+            googleMap.mapType = GoogleMap.MAP_TYPE_SATELLITE
+            googleMap.uiSettings.apply {
+                isCompassEnabled = false
+                isMapToolbarEnabled = false
+                isIndoorLevelPickerEnabled = false
+            }
+
+            map.setOnMapClickListener { point ->
+                map.clear()
+
+                lastLatitude = point.latitude
+                lastLongitude = point.longitude
+
+                val marker = MarkerOptions().position(LatLng(point.latitude, point.longitude))
+                    .title("Your chosen location")
+                map.addMarker(marker)
+            }
         }
-
-        map.setOnMapClickListener { point ->
-            map.clear()
-
-            lastLatitude = point.latitude
-            lastLongitude = point.longitude
-
-            val marker = MarkerOptions().position(LatLng(point.latitude, point.longitude))
-                .title("Your chosen location")
-            map.addMarker(marker)
-        }
-
-        getDeviceLocation()
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Log.i(TAG, "oncreteview")
         binding = FragmentMapsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.i(TAG, "onviewcreated")
         mapFragment = childFragmentManager.findFragmentById(R.id.f_map) as SupportMapFragment
         mapFragment.getMapAsync(callback)
         checkPermission()
@@ -88,6 +98,7 @@ class MapsFragment : Fragment() {
     }
 
     private fun initView() {
+        Log.i(TAG, "initview")
 
         binding.svLocation.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
@@ -142,7 +153,7 @@ class MapsFragment : Fragment() {
         }
 
         binding.cvLocateMe.setOnClickListener {
-            getDeviceLocation()
+            locateMe()
         }
 
     }
@@ -176,32 +187,23 @@ class MapsFragment : Fragment() {
         map.setOnMapLoadedCallback(onMapLoadedCallback)
     }
 
-    private fun checkPermission() {
-        if (ActivityCompat.checkSelfPermission(
-                requireContext(),
-                ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            locationPermissionGranted = true
-        } else {
-            ActivityCompat.requestPermissions(
-                requireActivity(),
-                arrayOf(ACCESS_FINE_LOCATION),
-                LOCATION_REQUEST_CODE
-            )
-        }
-    }
 
-
-    private fun getDeviceLocation() {
+    private fun locateMe() {
+        Log.i(TAG, "locateme")
         try {
             if (locationPermissionGranted) {
+                Log.i(TAG, "location permission is granted")
+                checkPermission()
                 val locationResult = fusedLocationProviderClient.lastLocation
                 locationResult.addOnCompleteListener(requireActivity()) { task ->
                     if (task.isSuccessful) {
 
+                        Log.i(TAG, "task is successfull")
+
                         lastKnownLocation = task.result
                         if (lastKnownLocation != null) {
+
+                            Log.i(TAG, "last location is not null")
 
                             lastLatitude = lastKnownLocation!!.latitude
                             lastLongitude = lastKnownLocation!!.longitude
@@ -224,9 +226,12 @@ class MapsFragment : Fragment() {
                                 ).title("Your Current Location")
                             )
 
+                        }else{
+                            Log.i(TAG, "last location is null")
                         }
                     } else {
 
+                        Log.i(TAG, "moving camera to default location")
 
                         map.moveCamera(
                             CameraUpdateFactory
@@ -240,12 +245,17 @@ class MapsFragment : Fragment() {
                     }
                 }
             }
-        } catch (e: SecurityException) {
-            Log.e("MapLoading", e.message, e)
+            else{
+                Log.i(TAG, "location permission is not granted")
+            }
+        } catch (e: Exception) {
+            Log.i(TAG, e.toString())
         }
     }
 
     override fun onResume() {
+        super.onResume()
+        Log.i(TAG, "onresume")
         if (lastKnownLocation != null) {
             map.addMarker(
                 MarkerOptions().position(
@@ -256,6 +266,21 @@ class MapsFragment : Fragment() {
                 ).title("Your Current Location")
             )
         }
-        super.onResume()
+    }
+
+    private fun checkPermission() {
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            locationPermissionGranted = true
+        } else {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(ACCESS_FINE_LOCATION),
+                LOCATION_REQUEST_CODE
+            )
+        }
     }
 }
