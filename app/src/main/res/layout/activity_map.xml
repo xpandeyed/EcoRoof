@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             app:navigationIcon="@drawable/ic_back"
-            app:title="Select Roof Area"
+            app:title="Select Your Roof"
             app:titleTextAppearance="@style/title_default" />
     </com.google.android.material.appbar.AppBarLayout>
 

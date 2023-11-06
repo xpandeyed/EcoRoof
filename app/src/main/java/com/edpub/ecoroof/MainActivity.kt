@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-        binding.cvCalculate.setOnClickListener {
+        binding.cvGetSavings.setOnClickListener {
             val intent = Intent(this, MapActivity::class.java)
             startActivity(intent)
         }

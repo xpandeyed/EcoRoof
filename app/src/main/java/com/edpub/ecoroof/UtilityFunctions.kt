@@ -13,11 +13,16 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 import java.io.ByteArrayOutputStream
+import java.util.Date
 
 
 object UtilityFunctions {
 
+    private val TAG = "UtilityFunctionsTag"
+
     val acTonnage= mutableListOf<String>("Choose your AC tonnage", "1", "2")
+
+    val temperatureApi = "https://archive-api.open-meteo.com/v1/archive?latitude=52.52&longitude=13.41&start_date=2023-01-31&end_date=2023-01-31&daily=temperature_2m_mean"
 
     //all temps in degree celcius
     const val min_temp = 18
@@ -29,9 +34,13 @@ object UtilityFunctions {
     const val specificHeat = 1.005 // kJ per kg kelvin at const pressure
     const val tempChange = 8 //temperature change on white paint application
 
-    fun savingInOneDay(r: Float, e: Float) {
-
+    fun getTotalSavings(latitude: Double, longitude: Double, startDate: Date, endDate: Date, acTonnage: Double){
+        val temperatureAndIntensity = HashMap<Date, Pair<Double, Double>>()
+//        getRawData(latitude, longitude, startDate, endDate)
     }
+
+
+
 
     fun getUriFromBitmap(bitmap: Bitmap, contentResolver: ContentResolver): Uri? {
         val bytes = ByteArrayOutputStream()
@@ -41,45 +50,9 @@ object UtilityFunctions {
         return Uri.parse(path)
     }
 
-    fun getStringData(context: Context, latitude: String, longitude: String,callback: ResponseCallback){
-        Log.i("fetchjson", "on")
-
-        val queue = Volley.newRequestQueue(context)
-        val url =
-            "https://power.larc.nasa.gov/api/temporal/daily/point?start=20220101&end=20220131&latitude=$latitude&longitude=$longitude&community=ag&parameters=T2M,ALLSKY_SFC_PAR_TOT&format=json&header=true&time-standard=lst"
-
-        val jsonObjectRequest = JsonObjectRequest(Request.Method.GET, url, null,
-            { response ->
-                Log.i("fetchjson", response.toString())
-                callback.onSuccess(response.toString())
-            },
-            { error ->
-                callback.onError(error.toString())
-            }
-        )
-        queue.add(jsonObjectRequest)
-    }
-
-    fun converter(myJsonObjectString: String): Map<String, Any> {
-        return Gson().fromJson(
-            myJsonObjectString, object : TypeToken<HashMap<String?, Any?>?>() {}.type
-        )
-    }
-
-    fun extractSolarIntensity(){
-
-    }
-
-    fun extractTemperatures(myMap: Map<String, Any>?){
-
-    }
-
     fun energyDueToTempChange(roofArea: Double): Double{
         val mass = airDensity*(roofArea* roomHeight)
-
         return mass* specificHeat* tempChange
     }
 
 }
-
-//map[properties][parameter][T2M][each day]
