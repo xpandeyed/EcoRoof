@@ -144,7 +144,7 @@ class CalculateSavingsActivity : AppCompatActivity() {
         Log.i(TAG, "Area: $area")
 
         for((key, value) in temperatureAndRadiations){
-            val currDayRadiation = value.second*area
+            val currDayRadiation = value.second*area*1e6
             val currDaySaving = currDayRadiation*(Utils.whitePainOnConcreteReflexivity-Utils.concreteReflexivity)
             energy+=currDaySaving
         }
