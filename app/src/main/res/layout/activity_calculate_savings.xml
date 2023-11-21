@@ -36,6 +36,7 @@
             style="@style/small_text_style_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
             android:layout_weight="1"
             android:text="Roof Area" />
 
@@ -44,9 +45,11 @@
             style="@style/small_text_style_description"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
             android:layout_weight="1"
-            android:inputType="numberDecimal"
             android:background="@null"
+            android:gravity="right"
+            android:inputType="numberDecimal"
             android:text="20" />
     </LinearLayout>
 
@@ -63,6 +66,8 @@
             style="@style/small_text_style_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+
             android:layout_weight="1"
             android:text="ISEER Rating" />
 
@@ -71,8 +76,40 @@
             style="@style/small_text_style_description"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
             android:layout_weight="1"
             android:background="@null"
+            android:gravity="right"
+            android:inputType="numberDecimal"
+            android:text="4.5" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_unit_cost"
+        style="@style/ll_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/message_background"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/ll_iseer_rating">
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/small_text_style_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_weight="1"
+            android:text="Unit Cost" />
+
+        <EditText
+            android:id="@+id/et_unit_cost"
+            style="@style/small_text_style_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="right"
             android:inputType="numberDecimal"
             android:text="20" />
     </LinearLayout>
@@ -85,6 +122,18 @@
         android:background="@color/ultra_light_green"
         app:layout_constraintBottom_toBottomOf="parent">
 
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:indeterminate="false"
+            android:progress="0"
+            app:trackColor="#00000000"
+            app:trackCornerRadius="2dp"
+            app:indicatorColor="@color/green10"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toTopOf="@id/cv_get_savings" />
+
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cv_get_savings"
@@ -93,8 +142,7 @@
             android:layout_height="@dimen/min_button_height"
             android:layout_margin="@dimen/default_margin"
             android:alpha="0.2"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBottom_toTopOf="@id/tv_cost_saved" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_calculate"
@@ -106,6 +154,17 @@
             app:layout_constraintLeft_toLeftOf="@id/cv_get_savings"
             app:layout_constraintRight_toRightOf="@id/cv_get_savings"
             app:layout_constraintTop_toTopOf="@id/cv_get_savings" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_cost_saved"
+            style="@style/small_text_style_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_margin"
+            android:background="@drawable/message_background"
+            android:gravity="center"
+            android:text="0.0"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

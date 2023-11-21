@@ -22,14 +22,15 @@ object Utils {
     const val min_temp = 18.0
     const val max_temp = 26.0
 
+    const val averageIseerRating = 4.5
+
     const val roomHeight = 2.7432 //in meters (9 feet height)
     const val airDensity = 1.2 //kg per cubic metres
     const val specificHeat = 1.005 // kJ per kg kelvin at const pressure
     const val tempChange = 8.0 //temperature change on white paint application
 
-    const val concreteReflexivity = 0.0
-    const val whitePainOnConcreteReflexivity = 0.0
-
+    const val concreteReflexivity = 0.5
+    const val whitePainOnConcreteReflexivity = 0.8
 
     fun getUriFromBitmap(bitmap: Bitmap, contentResolver: ContentResolver): Uri? {
         val bytes = ByteArrayOutputStream()
