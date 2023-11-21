@@ -52,4 +52,6 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
     implementation("com.google.code.gson:gson:2.10")
+
+    implementation("com.vanniktech:android-image-cropper:4.5.0")
 }

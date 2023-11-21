@@ -23,6 +23,60 @@
             app:titleTextAppearance="@style/title_default" />
     </com.google.android.material.appbar.AppBarLayout>
 
+    <LinearLayout
+        android:id="@+id/ll_area"
+        style="@style/ll_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/message_background"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/abl_calculate_savings">
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/small_text_style_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Roof Area" />
+
+        <EditText
+            android:id="@+id/et_area"
+            style="@style/small_text_style_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="numberDecimal"
+            android:background="@null"
+            android:text="20" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_iseer_rating"
+        style="@style/ll_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/message_background"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/ll_area">
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/small_text_style_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="ISEER Rating" />
+
+        <EditText
+            android:id="@+id/et_rating"
+            style="@style/small_text_style_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:inputType="numberDecimal"
+            android:text="20" />
+    </LinearLayout>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_calculate"

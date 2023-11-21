@@ -8,12 +8,12 @@ import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.core.app.ActivityCompat
+import androidx.fragment.app.Fragment
 import com.edpub.ecoroof.databinding.FragmentMapsBinding
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -25,6 +25,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.snackbar.Snackbar
 import java.io.IOException
+
 
 class MapsFragment : Fragment() {
 
@@ -74,6 +75,7 @@ class MapsFragment : Fragment() {
                     .title("Your chosen location")
                 map.addMarker(marker)
             }
+
         }
     }
 
@@ -145,9 +147,11 @@ class MapsFragment : Fragment() {
         binding.cvZoomIn.setOnClickListener {
             zoomIn()
         }
+
         binding.cvZoomOut.setOnClickListener {
             zoomOut()
         }
+
         binding.cvTakeSs.setOnClickListener {
             sendScreenShot()
         }
@@ -171,14 +175,11 @@ class MapsFragment : Fragment() {
         map.clear()
         val snapshotReadyCallback: GoogleMap.SnapshotReadyCallback =
             GoogleMap.SnapshotReadyCallback { selectedScreenShot ->
-                val uri = UtilityFunctions.getUriFromBitmap(
-                    selectedScreenShot!!,
-                    requireActivity().contentResolver
-                )
                 val intent = Intent(requireActivity(), EditMapAreaActivity::class.java)
-                intent.putExtra("mapImagePath", uri.toString())
-                intent.putExtra("lastLongitude", lastLongitude.toString())
-                intent.putExtra("lastLatitude", lastLatitude.toString())
+                val uri = Utils.getUriFromBitmap(selectedScreenShot!!, requireActivity().contentResolver).toString()
+                intent.putExtra("uri", uri)
+                intent.putExtra("latitude", lastLongitude)
+                intent.putExtra("longitude", lastLatitude)
                 startActivity(intent)
             }
         val onMapLoadedCallback: GoogleMap.OnMapLoadedCallback = GoogleMap.OnMapLoadedCallback {
@@ -283,4 +284,5 @@ class MapsFragment : Fragment() {
             )
         }
     }
+
 }

@@ -9,6 +9,8 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.edpub.ecoroof.databinding.ActivityCalculateSavingsBinding
 import org.json.JSONObject
+import java.lang.Double.max
+import java.lang.Double.min
 import java.time.LocalDate
 
 class CalculateSavingsActivity : AppCompatActivity() {
@@ -42,7 +44,6 @@ class CalculateSavingsActivity : AppCompatActivity() {
         val jsonObjectRequest = JsonObjectRequest(
             Request.Method.GET, url, null,
             { response ->
-//                Log.i(TAG, response.toString())
                 extractData(response)
             },
             { error ->
@@ -68,13 +69,67 @@ class CalculateSavingsActivity : AppCompatActivity() {
             val currTemp = temperatureArray.optDouble(i)
             val currRadiation = radiationArray.optDouble(i)
 
-            Log.i(TAG, currDate.toString() + " " + currTemp.toString() + " " + currRadiation.toString())
-
             temperatureAndRadiations[currDate] = Pair(currTemp, currRadiation)
 
+        }
+
+        val area = binding.etArea.text.toString().toDouble()
+        val iseerRating = binding.etRating.text.toString().toDouble()
+
+        getTotalEnergy(temperatureAndRadiations, area, iseerRating)
+    }
+
+    private fun getTotalEnergy(temperatureAndRadiations: HashMap<LocalDate, Pair<Double, Double>>, area: Double, iseerRating: Double): Double{
+        var energy = 0.0
+        energy+=getEnergyDueToTemperatureChange(temperatureAndRadiations, area, iseerRating)
+        energy+=getEnergyDueToReflectedRadiation(temperatureAndRadiations, area, iseerRating)
+        return energy
+    }
+
+    private fun energySavingForOneDay(temperature: Double, radiation: Double){
+        var energy = 0.0
+
+    }
+
+
+    private fun getEnergyDueToTemperatureChange(temperatureAndRadiations: HashMap<LocalDate, Pair<Double, Double>>, area: Double, iseerRating: Double): Double{
+        var energy = 0.0
+
+        for((key, value) in temperatureAndRadiations){
+            val currDayTemperature = value.first
+            if(currDayTemperature<=Utils.max_temp) continue;
+
+            val difference = Utils.max_temp - currDayTemperature
+            val temperatureDrop = min(difference, Utils.tempChange)
+            val volume = area*Utils.roomHeight
+            val airMassInRoom = volume*Utils.airDensity
+
+
+            val energySavingsForDay = airMassInRoom * Utils.specificHeat * temperatureDrop //energy = mass * specificHeat * temperatureChange
+
+            energy+=energySavingsForDay
+
+        }
+
+        return energy
+
+    }
+
+    private fun getEnergyDueToReflectedRadiation(temperatureAndRadiations: HashMap<LocalDate, Pair<Double, Double>>, area: Double, iseerRating: Double): Double{
+        var energy = 0.0
+
+        for((key, value) in temperatureAndRadiations){
+            val currDayRadiation = value.second*area
 
         }
 
 
+        return energy
     }
+
+    private fun getElectricalUnits(): Double{
+        var energy = 0.0
+        return energy
+    }
+
 }
