@@ -74,10 +74,9 @@
         <EditText
             android:id="@+id/et_rating"
             style="@style/small_text_style_description"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
-            android:layout_weight="1"
             android:background="@null"
             android:gravity="right"
             android:inputType="numberDecimal"
@@ -104,11 +103,12 @@
         <EditText
             android:id="@+id/et_unit_cost"
             style="@style/small_text_style_description"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
-            android:layout_weight="1"
             android:background="@null"
+            android:drawableStart="@drawable/ic_rupee"
+            android:drawablePadding="0dp"
             android:gravity="right"
             android:inputType="numberDecimal"
             android:text="20" />
@@ -126,13 +126,13 @@
             android:id="@+id/progress_bar"
             android:layout_width="match_parent"
             android:layout_height="4dp"
+            android:layout_marginBottom="20dp"
             android:indeterminate="false"
             android:progress="0"
-            app:trackColor="#00000000"
-            app:trackCornerRadius="2dp"
             app:indicatorColor="@color/green10"
-            android:layout_marginBottom="20dp"
-            app:layout_constraintBottom_toTopOf="@id/cv_get_savings" />
+            app:layout_constraintBottom_toTopOf="@id/cv_get_savings"
+            app:trackColor="#00000000"
+            app:trackCornerRadius="2dp" />
 
 
         <com.google.android.material.card.MaterialCardView

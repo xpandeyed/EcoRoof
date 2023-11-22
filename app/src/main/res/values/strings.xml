@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">TESLA</string>
+    <string name="app_name">Eco Roof</string>
     <string name="done">Done</string>
-    <string name="tesla">TESLA</string>
+    <string name="eco_roof">Eco Roof</string>
     <string-array name="ac_tonnage">
         <item>Choose your AC tonnage</item>
         <item>1</item>
