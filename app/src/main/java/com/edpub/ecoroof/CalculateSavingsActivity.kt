@@ -21,10 +21,16 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.edpub.ecoroof.databinding.ActivityCalculateSavingsBinding
 import com.google.gson.JsonObject
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.ResponseBody
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
+import java.io.FileOutputStream
 import java.io.InputStream
 import java.lang.Double.min
 import java.time.LocalDate
@@ -167,70 +173,38 @@ class CalculateSavingsActivity : AppCompatActivity() {
 
     // Function to make the API call
     private fun uploadImageToApi(contentUri: Uri) {
-        // Create an OkHttpClient with logging interceptor
-        val client = OkHttpClient.Builder()
-            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-            .connectTimeout(30, TimeUnit.SECONDS) // Adjust the timeout as needed
-            .readTimeout(30, TimeUnit.SECONDS)
-            .writeTimeout(30, TimeUnit.SECONDS)
-            .build()
-
-        // Create a Retrofit instance
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://ecoroofserver.onrender.com/") // Base URL of your API
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(client)
-            .build()
-
-        // Create an instance of the ApiService
-        val apiService = retrofit.create(ApiService::class.java)
-
-        // Get the file from the content URI using ContentResolver
+        val file = File(filesDir, "image.jpeg")
         val inputStream = contentResolver.openInputStream(contentUri)
-        val file = createTempFile("image", null, cacheDir)
-        file.copyInputStreamToFile(inputStream)
+        val outputStream = FileOutputStream(file)
+        inputStream!!.copyTo(outputStream)
 
-        // Create a request body with the image file
-        val requestFile = file.asRequestBody("image/jpeg".toMediaType())
-        val body = MultipartBody.Part.createFormData("image", file.name, requestFile)
+        val requestBody = file.asRequestBody("image/*".toMediaTypeOrNull())
 
-        // Make the API call
-        val call = apiService.uploadImage(body)
-        call.enqueue(object : Callback<JsonObject> {
-            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
-                if (response.isSuccessful) {
-                    // Handle successful response
-                    val result = response.body()
-                    Log.i(TAG, result.toString())
-                    // Do something with the result
-                } else {
-                    Log.i(TAG, "API call failed with response code: ${response}")
-                    // Handle error response
-                }
-            }
+        val part = MultipartBody.Part.createFormData("image", file.name, requestBody)
 
-            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-                // Log the error message
-                Log.i(TAG, "API call failed: ${t.message}", t)
-                // Handle failure
-            }
-        })
-    }
+        val retrofit = Retrofit.Builder().baseUrl("https://ecoroofserver.onrender.com")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(ApiService::class.java)
 
-    // Extension function to copy InputStream to File
-    private fun File.copyInputStreamToFile(inputStream: InputStream?) {
-        this.outputStream().use { fileOut ->
-            inputStream?.copyTo(fileOut)
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = retrofit.uploadImage(part)
+            Log.i(TAG, "Response: " + response.toString())
         }
+
+
+
     }
 
     interface ApiService {
         @Multipart
         @POST("area")
-        fun uploadImage(@Part image: MultipartBody.Part): Call<JsonObject>
+        suspend fun uploadImage(@Part image: MultipartBody.Part): ResponseBody
     }
 
-
-
-
+    private fun File.copyInputStreamToFile(inputStream: InputStream?) {
+        this.outputStream().use { fileOut ->
+            inputStream?.copyTo(fileOut)
+        }
+    }
 }
