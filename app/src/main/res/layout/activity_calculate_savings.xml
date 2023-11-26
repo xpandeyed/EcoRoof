@@ -43,14 +43,21 @@
         <EditText
             android:id="@+id/et_area"
             style="@style/small_text_style_description"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
             android:background="@null"
             android:gravity="right"
             android:inputType="numberDecimal"
-            android:text="20" />
+            android:paddingEnd="5dp"
+            android:text="1" />
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/small_text_style_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="0dp"
+            android:text="sq. m" />
     </LinearLayout>
 
     <LinearLayout
@@ -80,7 +87,7 @@
             android:background="@null"
             android:gravity="right"
             android:inputType="numberDecimal"
-            android:text="4.5" />
+            android:text="3.0" />
     </LinearLayout>
 
     <LinearLayout
@@ -130,9 +137,33 @@
             android:indeterminate="false"
             android:progress="0"
             app:indicatorColor="@color/green10"
-            app:layout_constraintBottom_toTopOf="@id/cv_get_savings"
+            app:layout_constraintBottom_toTopOf="@id/tv_units_saved"
             app:trackColor="#00000000"
             app:trackCornerRadius="2dp" />
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_units_saved"
+            style="@style/small_text_style_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_margin"
+            android:background="@drawable/message_background"
+            android:gravity="center"
+            android:text="0.0"
+            app:layout_constraintBottom_toTopOf="@id/tv_cost_saved" />
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_cost_saved"
+            style="@style/small_text_style_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_margin"
+            android:background="@drawable/message_background"
+            android:gravity="center"
+            android:text="0.0"
+            app:layout_constraintBottom_toTopOf="@id/cv_get_savings" />
 
 
         <com.google.android.material.card.MaterialCardView
@@ -142,7 +173,9 @@
             android:layout_height="@dimen/min_button_height"
             android:layout_margin="@dimen/default_margin"
             android:alpha="0.2"
-            app:layout_constraintBottom_toTopOf="@id/tv_cost_saved" />
+            app:layout_constraintBottom_toBottomOf="parent">
+
+        </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_calculate"
@@ -155,16 +188,6 @@
             app:layout_constraintRight_toRightOf="@id/cv_get_savings"
             app:layout_constraintTop_toTopOf="@id/cv_get_savings" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_cost_saved"
-            style="@style/small_text_style_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/default_margin"
-            android:background="@drawable/message_background"
-            android:gravity="center"
-            android:text="0.0"
-            app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

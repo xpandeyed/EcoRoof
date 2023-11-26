@@ -175,11 +175,12 @@ class MapsFragment : Fragment() {
         map.clear()
         val snapshotReadyCallback: GoogleMap.SnapshotReadyCallback =
             GoogleMap.SnapshotReadyCallback { selectedScreenShot ->
-                val intent = Intent(requireActivity(), EditMapAreaActivity::class.java)
+                val intent = Intent(requireActivity(), CalculateSavingsActivity::class.java)
                 val uri = Utils.getUriFromBitmap(selectedScreenShot!!, requireActivity().contentResolver).toString()
                 intent.putExtra("uri", uri)
-                intent.putExtra("latitude", lastLongitude)
-                intent.putExtra("longitude", lastLatitude)
+                Log.i(TAG, uri)
+                intent.putExtra("latitude", lastLatitude)
+                intent.putExtra("longitude", lastLongitude)
                 startActivity(intent)
             }
         val onMapLoadedCallback: GoogleMap.OnMapLoadedCallback = GoogleMap.OnMapLoadedCallback {
