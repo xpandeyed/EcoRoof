@@ -192,19 +192,12 @@ class CalculateSavingsActivity : AppCompatActivity() {
             Log.i(TAG, "Response: " + response.toString())
         }
 
-
-
     }
 
     interface ApiService {
         @Multipart
         @POST("area")
-        suspend fun uploadImage(@Part image: MultipartBody.Part): ResponseBody
+        suspend fun uploadImage(@Part image: MultipartBody.Part): JsonObject
     }
 
-    private fun File.copyInputStreamToFile(inputStream: InputStream?) {
-        this.outputStream().use { fileOut ->
-            inputStream?.copyTo(fileOut)
-        }
-    }
 }
